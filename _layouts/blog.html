@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title | escape }}</title>
+  <meta name="description" content="{{ page.description | default: site.description | escape }}">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>">
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.ca">
+  <link rel="preconnect" href="https://fonts.gstatic.ca" crossorigin>
+  <link href="https://fonts.googleapis.ca/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <!-- Custom CSS for a Luxury Feel -->
+  <style>
+    :root {
+      --background: #000000;
+      --surface: #1A1A1A;
+      --primary-red: #E50914;
+      --text-primary: #FFFFFF;
+      --text-secondary: #B3B3B3;
+      --border-color: #2F2F2F;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--background);
+      color: var(--text-primary);
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding-top: 80px; /* Space for the fixed header */
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 6rem 0; border-bottom: 1px solid var(--border-color); }
+  </style>
+</head>
+<body>
+    {%- include header.html -%}
+</section>
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-lg-10  mx-auto">
+
+        <section class="row">
+          {% for post in paginator.posts %}
+          <div class="col-md-4 mb-5">
+            <div class="card p-3" style="border: none; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); transition: transform 0.2s ease, box-shadow 0.2s ease; overflow: hidden;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 25px rgba(0, 0, 0, 0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0, 0, 0, 0.1)'">
+              
+              <!-- YouTube-style Thumbnail Container -->
+              <div style="position: relative; width: 100%; height: 200px; overflow: hidden; border-radius: 8px; margin-bottom: 1rem;">
+                <a href="{{ post.url | absolute_url }}">
+                  {% assign car_images = "car1.jpg" | split: "," %}
+                  {% if post.image %}
+                    <img loading="lazy" 
+                         src="{{ site.baseurl }}{{ post.image }}" 
+                         alt="{{ post.title }}"
+                         style="width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.3s ease;"
+                         onmouseover="this.style.transform='scale(1.05)'"
+                         onmouseout="this.style.transform='scale(1)'">
+                  {% else %}
+                    {% comment %} Create better randomness using multiple factors {% endcomment %}
+                    {% assign title_length = post.title | size %}
+                    {% assign date_day = post.date | date: "%d" | plus: 0 %}
+                    {% assign date_month = post.date | date: "%m" | plus: 0 %}
+                    {% assign loop_multiplier = forloop.index0 | times: 7 | plus: 3 %}
+                    {% assign random_seed = title_length | times: date_day | times: date_month | plus: loop_multiplier %}
+                    {% assign random_index = random_seed | modulo: car_images.size %}
+                    
+                    <img loading="lazy" 
+                         src="{{ site.baseurl }}/assets/images/cars/{{ car_images[random_index] | strip }}" 
+                         alt="Random car image"
+                         style="width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.3s ease;"
+                         onmouseover="this.style.transform='scale(1.05)'"
+                         onmouseout="this.style.transform='scale(1)'">
+                  {% endif %}
+                </a>
+                
+                <!-- Reading time badge (YouTube-style) -->
+                <div style="position: absolute; bottom: 8px; right: 8px; background: rgba(0, 0, 0, 0.8); color: white; padding: 2px 6px; border-radius: 3px; font-size: 12px; font-weight: 500;">
+                  {{ post.content | strip_html | number_of_words | divided_by: 200 }} min read
+                </div>
+              </div>
+              
+              <div class="card-block">
+                <h3 class="card-title h4 serif-font">
+                  <a href="{{ post.url | absolute_url }}" style="color: #1f2937; font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-decoration: none;">{{ post.title }}</a>
+                </h3>
+                <p class="card-text text-muted" style="font-size: 0.9rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{ post.excerpt | strip_html | truncatewords:20 }}</p>
+          
+                <div class="metafooter">
+                  <div class="wrapfooter small d-flex align-items-center">
+                    <div class="post-data">
+                      <div class="post-bio">
+                        <span class="post-date" style="color: #6b7280; font-size: 13px;">{{ post.date | date: "%b %d, %Y" }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {% endfor %}
+<!-- page speecd check -->
+          <nav class="d-flex justify-content-center my-4" aria-label="Blog pagination">
+            <ul class="pagination">
+              {% if paginator.previous_page %}
+                <li class="page-item">
+                  <a class="page-link" href="{{ paginator.previous_page_path | relative_url }}">&laquo; Previous</a>
+                </li>
+              {% else %}
+                <li class="page-item disabled"><span class="page-link">&laquo; Previous</span></li>
+              {% endif %}
+          
+              <li class="page-item disabled">
+                <span class="page-link">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+              </li>
+          
+              {% if paginator.next_page %}
+                <li class="page-item">
+                  <a class="page-link" href="{{ paginator.next_page_path | relative_url }}">Next &raquo;</a>
+                </li>
+              {% else %}
+                <li class="page-item disabled"><span class="page-link">Next &raquo;</span></li>
+              {% endif %}
+            </ul>
+          </nav>
+          
+      </div>
+      </section>
+
+    </div>
+  </div>
+  </div>
+
+  
+  {%- include footer.html -%}
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+# _config.yml for downtowndriving.school
+
+# Site Identity
+title: "Downtown Driving School | Specialist for Driving in Downtown Toronto"
+email: steadywheeldrivingschool@gmail.ca
+description: "Master downtown Toronto's streets with specialized driving lessons from Downtown Driving School, powered by SteadyWheels. Expert G2/G test prep for city driving."
+url: "https://www.downtowndriving.school" # Your new domain
+baseurl: ""
+
+# Permalinks
+permalink: pretty # Use pretty URLs (e.g., /about/ instead of /about.html)
+
+# Pagination for the Blog
+pagination:
+  enabled: true
+  collection: 'posts'  # <-- This is the missing line
+  per_page: 6
+  permalink: '/blog/page/:num/'
+  sort_field: 'date'
+  sort_reverse: true
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-feed
+
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# Custom Variables for Easy Editing
+# This makes it easy to update info without touching the HTML
+site_meta:
+  main_site_url: "https://www.steadywheelsdrivingschool.ca"
+  main_site_name: "SteadyWheels Driving School"
+  phone_number: "416-123-4567" # Your actual phone number
+  downtown_specialist:
+    name: "Alex Carter"
+    image: "/assets/images/instructor-alex.jpg" # A photo of the instructor
+    bio: "MTO-certified instructor with 5+ years specializing in downtown Toronto's unique traffic patterns."

@@ -1,0 +1,57 @@
+<!-- _includes/header.html -->
+<style>
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 80%, rgba(0,0,0,0) 100%);
+      padding: 1.5rem 0;
+      transition: background-color 0.3s, backdrop-filter 0.3s;
+    }
+    .header.scrolled {
+      background-color: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .header-container { display: flex; justify-content: space-between; align-items: center; }
+    .logo-container a { display: flex; align-items: center; text-decoration: none; }
+    .logo-powered-by { font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-right: 0.75rem; }
+    .logo-steadywheels { font-size: 1.25rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; }
+    .logo-steadywheels span { color: var(--primary-red); }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+    .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-cta { background-color: var(--primary-red); color: white; padding: 0.75rem 1.5rem; border-radius: 5px; font-weight: 600; transition: transform 0.2s; }
+    .nav-cta:hover { transform: scale(1.05); color: white; }
+  </style>
+  
+  <header class="header" id="site-header">
+    <div class="container header-container">
+      <div class="logo-container">
+        <a href="/" target="_blank" rel="noopener">
+          <div class="logo-powered-by">Powered by</div>
+          <div class="logo-steadywheels">STEADY<span>WHEELS</span></div>
+        </a>
+      </div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#features">Expertise</a>
+        <a href="#contact">Contact</a>
+        <a href="/blog" class="nav-cta">Read Our Blog</a>
+      </nav>
+    </div>
+  </header>
+  
+  <script>
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('site-header');
+      if (window.scrollY > 20) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  </script>
+  
