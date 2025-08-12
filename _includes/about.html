@@ -1,19 +1,91 @@
 <!-- _includes/about.html -->
 <style>
-    #about .about-container { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-    #about h2 { font-size: 3rem; font-weight: 700; line-height: 1.2; margin-bottom: 1.5rem; }
-    #about p { color: var(--text-secondary); line-height: 1.8; }
-    #about .about-image { width: 100%; height: 500px; object-fit: cover; border-radius: 10px; }
-  </style>
-  
-  <section id="about">
-    <div class="container about-container">
-      <div>
-        <h2>Precision Driving for the Urban Landscape.</h2>
-        <p>This is more than a driving school. It's a specialized training ground forged by the experts at SteadyWheels to master downtown Toronto's demanding environment. We focus on the nuanced skills required to navigate dense traffic, complex intersections, and the city's fast-paced rhythm with absolute confidence and safety.</p>
-      </div>
-      <div>
-        <img src="https://images.unsplash.com/photo-1646283181928-59e4244eb1e8?q=80&w=1180&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="about-image" alt="Sleek sports car">
-      </div>
+  #about {
+    padding: clamp(3rem, 6vw, 6rem) 0;
+  }
+
+  /* Grid layout - desktop */
+  #about .about-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+
+  /* Heading */
+  #about h2 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Paragraph */
+  #about p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: clamp(1rem, 1.3vw, 1.1rem);
+  }
+
+  /* Image */
+  #about .about-image {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+  }
+
+  /* Tablet and below: Reduce gap */
+  @media (max-width: 992px) {
+    #about .about-container {
+      gap: 3rem;
+    }
+    #about .about-image {
+      max-height: 400px;
+    }
+  }
+
+  /* Mobile: Stack layout vertically */
+  @media (max-width: 768px) {
+    #about .about-container {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    #about .about-image {
+      max-height: 350px;
+    }
+    #about h2 {
+      text-align: center;
+    }
+    #about p {
+      text-align: center;
+    }
+  }
+
+  /* Extra small mobile - tighten padding and scale text */
+  @media (max-width: 480px) {
+    #about {
+      padding: 2.5rem 0;
+    }
+    #about h2 {
+      font-size: 1.6rem;
+    }
+    #about .about-image {
+      max-height: 280px;
+    }
+  }
+</style>
+
+<section id="about">
+  <div class="container about-container">
+    <div>
+      <h2>Precision Driving for the Urban Landscape.</h2>
+      <p>This is more than a driving school. It's a specialized training ground forged by the experts at SteadyWheels to master downtown Toronto's demanding environment. We focus on the nuanced skills required to navigate dense traffic, complex intersections, and the city's fast-paced rhythm with absolute confidence and safety.</p>
     </div>
-  </section>
+    <div>
+      <img src="https://images.unsplash.com/photo-1646283181928-59e4244eb1e8?q=80&w=1180&auto=format&fit=crop" class="about-image" alt="Sleek sports car">
+    </div>
+  </div>
+</section>
