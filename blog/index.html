@@ -1,8 +1,7 @@
 ---
 layout: blog
-permalink: /blog/
-pagination:
-  enabled: true
+title: "Blog - Downtown Driving School"
+description: "Expert driving tips and insights for mastering downtown Toronto streets"
 ---
 
 <style>
@@ -100,19 +99,25 @@ pagination:
     <p>Your expert guide to mastering the art of city driving, with tips and strategies from our elite instructors.</p>
   </div>
 </header>
-
-
-
 <div class="container">
   <div class="post-grid">
     {% for post in paginator.posts %}
       <a href="{{ post.url | relative_url }}" class="post-card">
-        <img src="{{ post.image }}" alt="{{ post.title }}" class="post-card-image">
+        {% if post.image %}
+          <img src="{{ site.baseurl }}{{ post.image }}" alt="{{ post.title }}" class="post-card-image">
+        {% else %}
+          <!-- Default placeholder image for posts without images -->
+          <div class="post-card-image" style="background: linear-gradient(135deg, var(--primary-red), #ff4757); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+            🚗
+          </div>
+        {% endif %}
+        
         <div class="post-card-content">
           <h3 class="post-card-title">{{ post.title }}</h3>
           <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
           <div class="post-card-meta">
-            <span>{{ post.date | date: "%B %d, %Y" }}</span> &bull; <span>{{ post.author }}</span>
+            <span>{{ post.date | date: "%B %d, %Y" }}</span>
+            {% if post.author %} &bull; <span>{{ post.author }}</span>{% endif %}
           </div>
         </div>
       </a>
@@ -120,6 +125,7 @@ pagination:
   </div>
 
   <!-- Pagination -->
+  {% if paginator.total_pages > 1 %}
   <nav class="pagination-nav">
     {% if paginator.previous_page %}
       <a href="{{ paginator.previous_page_path | relative_url }}">&larr; Newer Posts</a>
@@ -135,4 +141,5 @@ pagination:
       <span class="disabled">Older Posts &rarr;</span>
     {% endif %}
   </nav>
+  {% endif %}
 </div>
