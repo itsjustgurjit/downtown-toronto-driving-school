@@ -1,8 +1,147 @@
----
-# /_layouts/post.html
-layout: default
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title | escape }}</title>
+  <meta name="description" content="{{ page.description | default: site.description | escape }}">
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --background: #000000;
+      --surface: #1A1A1A;
+      --primary-red: #E50914;
+      --text-primary: #FFFFFF;
+      --text-secondary: #B3B3B3;
+      --border-color: #2F2F2F;
+    }
+    body {
+      background-color: var(--background);
+      color: var(--text-primary);
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding-top: 80px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    section {
+      padding: 4rem 0;
+    }
+
+    /* Blog Card Layout */
+    .row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+    .blog-card {
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25);
+    }
+    .blog-card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: .75rem;
+      color: var(--text-primary);
+    }
+    .blog-card-excerpt {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+    .blog-card-meta {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border-color);
+      padding-top: .75rem;
+      margin-top: auto;
+    }
+    .read-time {
+      background-color: rgba(255,255,255,0.08);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* Read More Button inside Cards */
+    .read-more-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 10px 16px;
+      background-color: transparent;
+      border: 1px solid var(--primary-red);
+      color: var(--primary-red);
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    .read-more-btn:hover {
+      background-color: var(--primary-red);
+      color: white;
+    }
+
+    /* Pagination Styling */
+    .pagination {
+      display: flex;
+      list-style: none;
+      padding: 2rem 0 0 0;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .pagination .page-item .page-link {
+      padding: 8px 14px;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      background: var(--surface);
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .pagination .page-item .page-link:hover {
+      background-color: var(--primary-red);
+      border-color: var(--primary-red);
+      color: white;
+    }
+    .pagination .disabled .page-link {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    nav.d-flex {
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  {%- include header.html -%}
+
+  
 <style>
   .post-container {
     max-width: 800px;
@@ -55,9 +194,12 @@ layout: default
     </div>
   </header>
 
-  <img src="{{ page.image }}" alt="{{ page.title }}" class="post-image-feature">
-
   <div class="post-content">
     {{ content }}
   </div>
 </article>
+
+
+  {%- include footer.html -%}
+</body>
+</html>
